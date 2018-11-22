@@ -3,7 +3,12 @@
 
 package {{ .PackageName }}
 
-import  "go.uber.org/zap/zapcore"
+
+import  (
+"go.uber.org/zap/zapcore"
+"time"
+"github.com/golang/protobuf/ptypes"
+)
 
 
 {{ range .Messages }}{{ template "Message" . }}{{ end }}

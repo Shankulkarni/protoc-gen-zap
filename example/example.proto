@@ -9,12 +9,15 @@ package example;
 
 message User {
     string id = 1;
-    string first_name = 2 [(zap.redact) = true];
-    string last_name = 3 [(zap.redact) = true];
+    string first_name = 2  [(zap.redact) = true];
+    string last_name = 3  [(zap.redact) = true];
     int64 employee_number = 4 [(zap.redact) = true];
     string physical_desk = 6;
-    ServiceMsg service = 8;
-
+    ServiceMsg service =8;
+    repeated string blocked = 9;
+    map<string, string> extra = 10;
+    .google.protobuf.Timestamp hire_date = 11;
+    repeated ServiceMsg list =12;
 
 }
 

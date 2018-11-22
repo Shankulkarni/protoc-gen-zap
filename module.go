@@ -4,6 +4,7 @@ import (
 	"github.com/lyft/protoc-gen-star"
 	"github.com/lyft/protoc-gen-star/lang/go"
 	"github.com/shankulkarni/protoc-gen-zap/zap"
+	"strings"
 )
 
 type zapGen struct {
@@ -44,12 +45,19 @@ func (m *zapGen) Execute(targets map[string]pgs.File, packages map[string]pgs.Pa
 				}
 
 				r := zapField{
-					Redact:   redact,
-					Name:     v.Name().UpperCamelCase().String(),
-					Type:     v.Descriptor().Type.String(),
-					Label:    v.Descriptor().GetLabel().String(),
-					TypeName: v.Descriptor().GetTypeName(),
+					Redact:      redact,
+					Name:        v.Name().UpperCamelCase().String(),
+					Type:        v.Descriptor().Type.String(),
+					Label:       v.Descriptor().GetLabel().String(),
+					TypeName:    v.Descriptor().GetTypeName(),
+					FType:       v.Type(),
+					SamePackage: false,
 				}
+
+				if strings.HasPrefix(r.TypeName, "."+fm.PackageName+".") {
+					r.SamePackage = true
+				}
+
 				list = append(list, r)
 
 			}
@@ -69,11 +77,13 @@ func (m *zapGen) Execute(targets map[string]pgs.File, packages map[string]pgs.Pa
 }
 
 type zapField struct {
-	Name     string
-	Type     string
-	Redact   bool
-	Label    string
-	TypeName string
+	Name        string
+	Type        string
+	Redact      bool
+	Label       string
+	TypeName    string
+	FType       pgs.FieldType
+	SamePackage bool
 }
 
 type messageModel struct {
