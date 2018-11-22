@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package zap;
+
+import "google/protobuf/descriptor.proto";
+
+option go_package="zappb";
+
+extend google.protobuf.FieldOptions {
+    bool redact = 847847;
+}

@@ -1,0 +1,90 @@
+
+{{ define "Message" }}
+
+func (u *{{.Name}}) MarshalLogObject(enc zapcore.ObjectEncoder) error {
+	if u == nil {
+		return nil
+	}
+
+	{{range .Fields}}
+	   {{if .Name}}
+             {{if not .Redact }}
+                        {{if eq .Type "TYPE_DOUBLE"}}
+                            enc.AddFloat64("{{.Name}}:", u.{{.Name}})
+
+
+                        {{ else if eq .Type "TYPE_FLOAT"}}
+                            enc.AddFloat32("{{.Name}}:", u.{{.Name}})
+
+
+                        {{ else if eq .Type "TYPE_INT64"}}
+                            enc.AddInt64("{{.Name}}:", u.{{.Name}})
+
+
+                        {{ else if eq .Type "TYPE_UINT64"}}
+                            enc.AddUint64("{{.Name}}:", u.{{.Name}})
+
+
+                        {{ else if eq .Type "TYPE_INT32"}}
+                            enc.AddInt32("{{.Name}}:", u.{{.Name}})
+
+
+                        {{ else if eq .Type "TYPE_FIXED64"}}
+                            enc.AddUint64("{{.Name}}:", u.{{.Name}})
+
+
+                        {{ else if eq .Type "TYPE_FIXED32"}}
+                            enc.AddUint32("{{.Name}}:", u.{{.Name}})
+
+
+                        {{ else if eq .Type "TYPE_BOOL"}}
+                            enc.AddBool("{{.Name}}:", u.{{.Name}})
+
+
+                        {{ else if eq .Type "TYPE_STRING"}}
+                            enc.AddString("{{.Name}}:", u.{{.Name}})
+
+
+                        {{ else if eq .Type "TYPE_BYTES"}}
+                            enc.AddByteString("{{.Name}}:", u.{{.Name}})
+
+
+                        {{ else if eq .Type "TYPE_UINT32"}}
+                            enc.AddUint32("{{.Name}}:", u.{{.Name}})
+
+
+                        {{ else if eq .Type "TYPE_SFIXED32"}}
+                            enc.AddInt32("{{.Name}}:", u.{{.Name}})
+
+
+                        {{ else if eq .Type "TYPE_SFIXED64"}}
+                            enc.AddInt64("{{.Name}}:", u.{{.Name}})
+
+
+                        {{ else if eq .Type "TYPE_SINT32"}}
+                            enc.AddInt32("{{.Name}}:", u.{{.Name}})
+
+
+                        {{ else if eq .Type "TYPE_SINT64"}}
+                            enc.AddInt64("{{.Name}}:", u.{{.Name}})
+
+                        {{ else if eq .Type "TYPE_MESSAGE"}}
+                            enc.AddObject("{{.Name}}:", u.{{.Name}})
+
+
+                        {{ else if eq .Type "TYPE_ENUM"}}
+                            enc.AddString("{{.Name}}:", string(u.{{.Name}}))
+
+
+                        {{ else }}
+                            enc.AddReflected("{{.Name}}:", u.{{.Name}})
+                        {{end}}
+
+             {{end}}
+        {{end}}
+
+	{{end}}
+
+	return nil
+}
+{{end}}
