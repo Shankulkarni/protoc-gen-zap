@@ -267,7 +267,7 @@ func (u *{{.Name}}) MarshalLogObject(enc zapcore.ObjectEncoder) error {
 
                     {{else if  eq .TypeName ".google.protobuf.Timestamp"}}
                           time{{.Name}},_ := ptypes.Timestamp(u.{{.Name}})
-                          enc.AddString("{{.Name}}:", time{{.Name}}.Format("Mon Jan 2 2006 15:04:05 -0700 MST "))
+                          enc.AddTime("{{.Name}}:", time{{.Name}})
                     {{else}}
                         enc.AddReflected("{{.Name}}:", u.{{.Name}})
                     {{end}}

@@ -30,7 +30,7 @@ func (u *User) MarshalLogObject(enc zapcore.ObjectEncoder) error {
 	enc.AddReflected("Extra:", u.Extra)
 
 	timeHireDate, _ := ptypes.Timestamp(u.HireDate)
-	enc.AddString("HireDate:", timeHireDate.Format("Mon Jan 2 2006 15:04:05 -0700 MST "))
+	enc.AddTime("HireDate:", timeHireDate)
 
 	ListArrMarshaller := func(enc zapcore.ArrayEncoder) error {
 		for _, v := range u.List {
