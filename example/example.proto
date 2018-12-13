@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-import "google/protobuf/timestamp.proto";
-
 import "zap/zap.proto";
 
 package example;
@@ -16,8 +14,7 @@ message User {
     ServiceMsg service =8;
     repeated string blocked = 9;
     map<string, string> extra = 10;
-    .google.protobuf.Timestamp hire_date = 11;
-    repeated ServiceMsg list =12;
+    repeated ServiceMsg list =11;
 
 }
 
